@@ -1,24 +1,20 @@
 <%@ page contentType="text/html;charset=utf-8" import="java.sql.*, java.io.*,myBean.*" %>
 <%
-request.setCharacterEncoding("utf-8");
+request.setCharacterEncoding("utf-8"); //인코딩셋
  
 try {
-	String idx =request.getParameter("idx");
+	String idx =request.getParameter("idx"); //삭제버튼 누르면 삭제할 레코드의 movieIdx가 파라미터에 담겨넘어옴. 이를 받아서 저장.
  
-	MovieDB db=new MovieDB();
-	db.deleteMovie(Integer.parseInt(idx));
+	MovieDB db=new MovieDB(); //MovieDB객체 생성
+	db.deleteMovie(Integer.parseInt(idx)); //deleteMovie 객체를 통해 해당 idx를 primarykey로 가진 레코드를 삭제한다. 
 	db.close();
-} catch (SQLException e) {
-	//SQL에 대한 오류나, DB 연결 오류 등이 발생하면, 그 대처 방안을 코딩해 준다.
-	out.println(e.toString());
+} catch (SQLException e) {//sql오류, db오류 등 발생시 
+	out.println(e.toString()); //메세지출력
 	return;
 } catch (Exception e) { 
-	//SQLException 이외의 오류에 대한 대처 방안을 코딩해 준다.
 	out.println(e.toString());
 	return;
 }
 
-
-/* 오류 발생하거나 화면에 아무것도 나타나지 않으면 이곳을  주석 처리하여 오류를 확인할 것 */
-response.sendRedirect("movie_list.jsp");   
+response.sendRedirect("movie_list.jsp");   //전체 동영상 목록을 출력하는 목록 출력 페이지로 이동.
 %> 
